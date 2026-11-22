@@ -172,11 +172,7 @@ async def load_mangalore_demo(
     """
     sample_dir = os.path.join(os.path.dirname(__file__), "..", "..", "..", "sample_drone_images")
     if not os.path.exists(sample_dir):
-        alt_sample_dir = os.path.join(os.path.dirname(__file__), "..", "..", "uploads", "raw")
-        if os.path.exists(alt_sample_dir):
-            sample_dir = alt_sample_dir
-        else:
-            raise HTTPException(status_code=404, detail="Sample images directory not found.")
+        sample_dir = str(RAW_UPLOAD_DIR)
 
     sample_files = [
         "mangaluru_forest_embankment_angle1.jpg",
