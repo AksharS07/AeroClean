@@ -8,26 +8,22 @@ if os.getenv("VERCEL"):
     UPLOAD_DIR = Path("/tmp/uploads")
     RAW_UPLOAD_DIR = UPLOAD_DIR / "raw"
     ANNOTATED_UPLOAD_DIR = UPLOAD_DIR / "annotated"
+    STUDIO_DIR = UPLOAD_DIR / "studio"
+    STUDIO_RAW_DIR = STUDIO_DIR / "raw"
+    STUDIO_THUMB_DIR = STUDIO_DIR / "thumbnails"
 
-    try:
-        RAW_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-        ANNOTATED_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-    except Exception:
-        pass
+    for d in [RAW_UPLOAD_DIR, ANNOTATED_UPLOAD_DIR, STUDIO_RAW_DIR, STUDIO_THUMB_DIR]:
+        try:
+            d.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
 
     bundled_uploads = BASE_DIR / "uploads"
     if bundled_uploads.exists():
-        for sub in ["raw", "annotated"]:
-            bundled_sub = bundled_uploads / sub
-            tmp_sub = UPLOAD_DIR / sub
-            if bundled_sub.exists():
-                for f in bundled_sub.glob("*.*"):
-                    target = tmp_sub / f.name
-                    if not target.exists():
-                        try:
-                            shutil.copy2(f, target)
-                        except Exception:
-                            pass
+        try:
+            shutil.copytree(bundled_uploads, UPLOAD_DIR, dirs_exist_ok=True)
+        except Exception:
+            pass
 
     bundled_db = BASE_DIR / "aeroclean.db"
     tmp_db = Path("/tmp/aeroclean.db")

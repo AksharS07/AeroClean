@@ -137,13 +137,21 @@ async def upload_survey(
 
     # Import SessionLocal inside request to pass factory to background task
     from app.core.database import SessionLocal
-    background_tasks.add_task(
-        process_survey_background_job,
-        survey_id=survey_summary.id,
-        file_paths=file_paths,
-        filenames=filenames,
-        db_session_factory=SessionLocal
-    )
+    if os.getenv("VERCEL"):
+        process_survey_background_job(
+            survey_id=survey_summary.id,
+            file_paths=file_paths,
+            filenames=filenames,
+            db_session_factory=SessionLocal
+        )
+    else:
+        background_tasks.add_task(
+            process_survey_background_job,
+            survey_id=survey_summary.id,
+            file_paths=file_paths,
+            filenames=filenames,
+            db_session_factory=SessionLocal
+        )
 
     return SurveyCreateResponse(
         survey_id=survey_summary.id,
@@ -164,7 +172,11 @@ async def load_mangalore_demo(
     """
     sample_dir = os.path.join(os.path.dirname(__file__), "..", "..", "..", "sample_drone_images")
     if not os.path.exists(sample_dir):
-        raise HTTPException(status_code=404, detail="Sample images directory not found.")
+        alt_sample_dir = os.path.join(os.path.dirname(__file__), "..", "..", "uploads", "raw")
+        if os.path.exists(alt_sample_dir):
+            sample_dir = alt_sample_dir
+        else:
+            raise HTTPException(status_code=404, detail="Sample images directory not found.")
 
     sample_files = [
         "mangaluru_forest_embankment_angle1.jpg",
@@ -200,13 +212,21 @@ async def load_mangalore_demo(
             filenames.append(sf)
 
     from app.core.database import SessionLocal
-    background_tasks.add_task(
-        process_survey_background_job,
-        survey_id=survey_summary.id,
-        file_paths=valid_paths,
-        filenames=filenames,
-        db_session_factory=SessionLocal
-    )
+    if os.getenv("VERCEL"):
+        process_survey_background_job(
+            survey_id=survey_summary.id,
+            file_paths=valid_paths,
+            filenames=filenames,
+            db_session_factory=SessionLocal
+        )
+    else:
+        background_tasks.add_task(
+            process_survey_background_job,
+            survey_id=survey_summary.id,
+            file_paths=valid_paths,
+            filenames=filenames,
+            db_session_factory=SessionLocal
+        )
 
     return SurveyCreateResponse(
         survey_id=survey_summary.id,
