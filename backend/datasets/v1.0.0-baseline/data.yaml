@@ -1,0 +1,14 @@
+path: C:\Users\Anfal\OneDrive\Documents\Anti gravity\aeroclean\backend\datasets\v1.0.0-baseline
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: Plastic Carry Bag
+  1: PET Water Bottle
+  2: Gutkha Pouch
+  3: Chai Paper Cup
+  4: Snack Wrapper
+  5: Coconut Husk
+  6: Cardboard Scrap
+  7: Beverage Can
+  8: Street Litter
