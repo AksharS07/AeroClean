@@ -1,0 +1,6 @@
+.git
+.github
+frontend/node_modules
+*.pptx
+generate_pitch_deck.py
+"ss of ui"

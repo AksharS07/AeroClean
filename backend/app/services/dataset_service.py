@@ -17,8 +17,11 @@ STUDIO_DIR = UPLOAD_DIR / "studio"
 STUDIO_RAW_DIR = STUDIO_DIR / "raw"
 STUDIO_THUMB_DIR = STUDIO_DIR / "thumbnails"
 
-STUDIO_RAW_DIR.mkdir(parents=True, exist_ok=True)
-STUDIO_THUMB_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    STUDIO_RAW_DIR.mkdir(parents=True, exist_ok=True)
+    STUDIO_THUMB_DIR.mkdir(parents=True, exist_ok=True)
+except Exception:
+    pass
 
 
 class DatasetService:

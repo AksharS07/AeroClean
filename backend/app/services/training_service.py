@@ -14,11 +14,19 @@ from app.models.studio_domain import DatasetVersionSummary, ModelVersionDetail, 
 from app.services.dataset_service import DatasetService
 from app.services.annotation_service import GARBAGE_CLASSES, CLASS_TO_ID, ID_TO_CLASS, AnnotationService
 
-DATASETS_ROOT = BASE_DIR / "datasets"
-MODELS_ROOT = BASE_DIR / "models_registry"
+if os.getenv("VERCEL"):
+    from pathlib import Path
+    DATASETS_ROOT = Path("/tmp/datasets")
+    MODELS_ROOT = Path("/tmp/models_registry")
+else:
+    DATASETS_ROOT = BASE_DIR / "datasets"
+    MODELS_ROOT = BASE_DIR / "models_registry"
 
-DATASETS_ROOT.mkdir(parents=True, exist_ok=True)
-MODELS_ROOT.mkdir(parents=True, exist_ok=True)
+try:
+    DATASETS_ROOT.mkdir(parents=True, exist_ok=True)
+    MODELS_ROOT.mkdir(parents=True, exist_ok=True)
+except Exception:
+    pass
 
 class TrainingService:
     @classmethod
