@@ -461,7 +461,7 @@ export const AnnotationCanvas: React.FC<AnnotationCanvasProps> = ({
               {/* Main Aerial Drone Image */}
               <img
                 ref={imgRef}
-                src={currentImage.file_path.startsWith('http') ? currentImage.file_path : `http://localhost:8000${currentImage.file_path}`}
+                src={currentImage.file_path}
                 alt={currentImage.filename}
                 className="max-h-[calc(100vh-210px)] max-w-full object-contain pointer-events-auto cursor-crosshair"
                 draggable={false}

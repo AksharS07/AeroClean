@@ -440,7 +440,7 @@ export const ModelRegistry: React.FC<ModelRegistryProps> = ({ onModelPromoted })
                       <div className="lg:col-span-2 bg-black/90 rounded-2xl p-4 border border-gray-800 relative overflow-hidden flex flex-col items-center">
                         <div className="relative inline-block max-w-full rounded-lg overflow-hidden">
                           <img
-                            src={activeVisual.image_url.startsWith('http') ? activeVisual.image_url : `http://localhost:8000${activeVisual.image_url}`}
+                            src={activeVisual.image_url}
                             alt={activeVisual.filename}
                             className="max-h-[480px] max-w-full object-contain rounded-lg"
                           />

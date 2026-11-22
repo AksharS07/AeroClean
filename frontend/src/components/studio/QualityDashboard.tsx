@@ -187,7 +187,7 @@ export const QualityDashboard: React.FC<QualityDashboardProps> = ({
                     >
                       <div className="aspect-video bg-gray-900 rounded overflow-hidden mb-2">
                         <img
-                          src={img.file_path.startsWith('http') ? img.file_path : `http://localhost:8000${img.file_path}`}
+                          src={img.file_path}
                           alt={img.filename}
                           className="w-full h-full object-cover group-hover:scale-105 transition"
                         />

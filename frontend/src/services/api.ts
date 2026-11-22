@@ -1,18 +1,8 @@
 import axios from 'axios';
 import { SurveySummary, SurveyDetail, GeoJSONFeatureCollection, HotspotItem, ImageDetails } from '../types';
 
-// Dynamic API Base URL resolution - works with Vite proxy and direct backend host
-const getApiBaseUrl = () => {
-  if (typeof window !== 'undefined' && window.location.port === '3000') {
-    return '/api/v1';
-  }
-  return 'http://127.0.0.1:8000/api/v1';
-};
-
-const API_BASE_URL = getApiBaseUrl();
-
 export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: '/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
