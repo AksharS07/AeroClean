@@ -124,7 +124,7 @@ export const DatasetMap: React.FC<DatasetMapProps> = ({ onSelectImageToAnnotate 
                   <div className="p-2.5 text-gray-900 font-sans max-w-xs space-y-2">
                     <div className="rounded-lg overflow-hidden h-28 border border-gray-200">
                       <img
-                        src={img.thumbnail_path || img.file_path}
+                        src={img.file_path || img.thumbnail_path}
                         alt="thumb"
                         className="w-full h-full object-cover"
                       />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Upload, Filter, Grid, List as ListIcon, MapPin, Eye, Edit3, Tag, 
-  CheckSquare, Square, Layers, Sparkles, X, Compass, Info, Check, RefreshCw, Trash2 
+  CheckSquare, Square, Layers, Sparkles, X, Compass, Info, Check, RefreshCw, Trash2, Maximize2 
 } from 'lucide-react';
 import { DatasetImageSummary, DatasetImageDetail, DatasetStatsResponse } from '../../types/studio';
 import { studioApi } from '../../services/studioApi';
@@ -323,12 +323,21 @@ export const DatasetGallery: React.FC<DatasetGalleryProps> = ({
                 }`}
               >
                 {/* Thumbnail Preview */}
-                <div className="relative h-44 bg-gray-950 overflow-hidden">
+                <div 
+                  onClick={() => onSelectImageToAnnotate(img.id)}
+                  className="relative h-44 bg-gray-950 overflow-hidden cursor-pointer"
+                  title="Click to view full image and mappings"
+                >
                   <img
-                    src={img.thumbnail_path || img.file_path}
+                    src={img.file_path || img.thumbnail_path}
                     alt={img.filename}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <span className="bg-black/85 text-white text-xs px-2.5 py-1 rounded-lg border border-gray-700 flex items-center gap-1.5 shadow-xl font-medium">
+                      <Maximize2 className="w-3.5 h-3.5 text-blue-400" /> View Mappings
+                    </span>
+                  </div>
 
                   {/* Selection Checkbox */}
                   <button
@@ -453,7 +462,7 @@ export const DatasetGallery: React.FC<DatasetGalleryProps> = ({
                     </td>
                     <td className="p-3.5">
                       <img
-                        src={img.thumbnail_path || img.file_path}
+                        src={img.file_path || img.thumbnail_path}
                         alt="thumb"
                         className="w-12 h-10 object-cover rounded-lg border border-gray-800"
                       />
